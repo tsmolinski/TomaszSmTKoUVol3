@@ -9,19 +9,15 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"GameplayAbilities",
+				"Engine",
 				"AIModule",
-				"Engine"
+				"GameplayAbilities"
 			]
 		}
 	],
 	"Plugins": [
 		{
 			"Name": "GameplayAbilities",
-			"Enabled": true
-		},
-		{
-			"Name": "MLAdapter",
 			"Enabled": true
 		},
 		{
