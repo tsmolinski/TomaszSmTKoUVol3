@@ -54,6 +54,7 @@ UEnvQueryTest_EqsSelect::UEnvQueryTest_EqsSelect(const FObjectInitializer& Objec
 
 void UEnvQueryTest_EqsSelect::RunTest(FEnvQueryInstance& QueryInstance) const
 {
+	// Code review: Najlepie byloby zamienic na TObjectPtr<>
 	UObject* QueryOwner = QueryInstance.Owner.Get();
 	if (QueryOwner == nullptr)
 	{
@@ -72,6 +73,7 @@ void UEnvQueryTest_EqsSelect::RunTest(FEnvQueryInstance& QueryInstance) const
 	for (FEnvQueryInstance::ItemIterator It(this, QueryInstance); It; ++It)
 	{
 		//get actor 
+		// Code review: Najlepie byloby zamienic na TObjectPtr<>
 		const AActor* ItemActor = GetItemActor(QueryInstance, It.GetIndex());
 		if(!IsValid(ItemActor))
 			It.ForceItemState(EEnvItemStatus::Failed);
@@ -95,11 +97,15 @@ void UEnvQueryTest_EqsSelect::RunTest(FEnvQueryInstance& QueryInstance) const
 		
 				auto foundValue = map.Find(Value);
 				auto value = DefaultValue.GetValue();
+				// Code review: Najlepiej byloby uzywac nawiasow klamrowych, nawet jezeli wyrazenie to jedna linia
+				// ewentualnie jest to do uzgodnienia dla projektu
 				if(foundValue!=nullptr)
 					value = *foundValue;
 
 				//substract ref value
 				value -= ReferencePoint.GetValue();
+				// Code review: Najlepiej byloby uzywac nawiasow klamrowych, nawet jezeli wyrazenie to jedna linia
+				// ewentualnie jest to do uzgodnienia dla projektu
 				if(value<0)
 					value*=-1;
 		
@@ -117,6 +123,8 @@ void UEnvQueryTest_EqsSelect::RunTest(FEnvQueryInstance& QueryInstance) const
 
 FText UEnvQueryTest_EqsSelect::GetDescriptionTitle() const
 {
+	// Code review: najlepiej byloby unikac tworzenia zmiennych, aby pozniej je tylko przypisac do innej zmiennej
+	// najlepiej byloby miec cos w rodzaju: auto Tchar1 = *(Value.ToString()), jezeli jest taka mozliwosc
 	auto Fstring1 = Value.ToString();
 	auto Fstring2 = DefaultValue.ToString();
 	auto Fstring3 = ReferencePoint.ToString();
